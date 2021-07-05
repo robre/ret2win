@@ -1,0 +1,110 @@
+<!doctype html>
+<html>
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />  
+        <link href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css" rel="stylesheet">
+        <title>ROP2WIN</title>
+    </head>
+    <body class="bg-gray-800">
+        <div>
+            <nav class="flex items-center justify-between p-6 container mx-auto text-white">
+                <div>
+                    <a href="/" class="block mt-4 lg:inline-block text-teal-600 lg:mt-0 mr-10">ROP2WIN</a>
+                </div>
+            </nav>
+        </div>
+        <hr/>
+        <section class="content">
+            <div class="bg-gray-700 p-20">
+                <header class="">
+
+
+                </header>
+
+                <div>
+
+                    <div class="grid grid-cols-4 justify-items-center bg-purple-900 p-16 border-t" >
+                        <div>
+                            <span class="text-white font-mono font-light">Gadgets:</span>
+                            <ul id="gadgets" class="connectedSortable">
+                                <li class="bg-pink-500 nonome border-solid rounded border-2 p-2 border-gray-900">ret;</li>
+                                <li class="bg-pink-500 border-solid rounded border-2 p-2 border-gray-900">break;</li>
+                                <li class="bg-pink-500 border-solid rounded border-2 p-2 border-gray-900">pop eax; ret;</li>
+                                <li class="bg-pink-500 border-solid rounded border-2 p-2 border-gray-900">pop ebx; ret;</li>
+                                <li class="bg-pink-500 border-solid rounded border-2 p-2 border-gray-900">pop ecx; ret;</li>
+                                <li class="bg-pink-500 border-solid rounded border-2 p-2 border-gray-900">pop edx; ret;</li>
+                                <li class="bg-pink-500 border-solid rounded border-2 p-2 border-gray-900">xor eax, eax; ret;</li>
+                                <li class="bg-pink-500 border-solid rounded border-2 p-2 border-gray-900">mov edx, eax; ret;</li>
+                                <li class="bg-pink-500 border-solid rounded border-2 p-2 border-gray-900">inc eax; ret;</li>
+                                <li class="bg-pink-500 border-solid rounded border-2 p-2 border-gray-900">int 0x80;</li>
+                            </ul>
+                        </div>
+                        <div>
+                            <span class="text-white font-mono font-light">Data&amp;Pointers:</span>
+                            <ul id="datapointers" class="connectedSortable">
+                                <li class="bg-pink-500 nonome border-solid rounded border-2 p-2 border-gray-900">ret;</li>
+                                <li class="bg-pink-500 border-solid rounded border-2 p-2 border-gray-900">&amp;."/bin/sh"</li>
+                                <li class="bg-pink-500 border-solid rounded border-2 p-2 border-gray-900">&amp;.system()</li>
+                                <li class="bg-pink-500 border-solid rounded border-2 p-2 border-gray-900">&amp;.exit()</li>
+                                <li class="bg-pink-500 border-solid rounded border-2 p-2 border-gray-900">0x41414141</li>
+                            </ul>
+                        </div>
+                        <div>
+                            <span class="text-white font-mono font-light">Exploit:</span>
+                            <ul id="exploit" class="connectedSortable">
+                                <li class="bg-pink-500 nonome border-solid rounded border-2 p-2 border-gray-900">ret;</li>
+                            </ul>
+                        </div>
+                        <div>
+                            <ul class="text-white font-light font-mono ">
+                                <li>eax: <span id="eax">0x00000000</span></li>
+                                <li>ebx: <span id="ebx">0x00000000</span></li>
+                                <li>ecx: <span id="ecx">0x00000000</span></li>
+                                <li>edx: <span id="edx">0x00000000</span></li>
+                                <li>edi: <span id="edi">0x00000000</span></li>
+                                <li>esi: <span id="esi">0x00000000</span></li>
+                                <li>esp: <span id="esp">0x00000000</span></li>
+                                <li>eip: <span id="eip">0x00000000</span></li>
+                            </ul>
+                            <br>
+                            <span class="text-white font-mono font-light">Stack:</span>
+                            <ul id="stack" class="">
+                                <li class="nonome border-solid rounded border-2 p-1 pr-8 pl-8 border-gray-900 bg-white-800">0x41414141</li>
+                            </ul>
+                            <br>
+                            <button class="border p-2 bg-yellow-500" onclick="step()">step</button>
+                            <button class="border p-2 bg-green-500" onclick="run()">run</button>
+                            <button class="border p-2 bg-red-500" onclick="setexecenv()">reset</button>
+
+                            <div>
+                            </div>
+                        </div>
+                    </div>
+                    <div>
+                        Legend:
+                        <ul>
+                            <li>Gadget</li>
+                            <li>dword</li>
+                            <li>&amp;."String"</li>
+                            <li>"String"</li>
+                            <li>&amp;.function()</li>
+                        </ul>
+                        Calling Convention:
+                        eax: param1
+                        ebx: param2
+                        ecx: param3
+                        edx: param4
+                        <br>
+                        <p>Goal: set eip to system() with /bin/sh in eax</p>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+        <script src="app.js"></script>
+
+    </body>
+</html>
